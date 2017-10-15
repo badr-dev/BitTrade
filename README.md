@@ -1,0 +1,2 @@
+# BitTrade
+Platform For Trading 
