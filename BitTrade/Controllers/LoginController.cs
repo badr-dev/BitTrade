@@ -21,18 +21,19 @@ namespace BitTrade.Controllers
             _service = service;
         }
 
-        // GET: /Login/
+        // GET: /Login/ : Page de connexion / inscription
         public IActionResult Index()
         {
             return View();
         }
 
         // GET: /Login/Users/
-        public IActionResult Users()
+        /*public IActionResult Users()
         {
-            var users = _service.Get();
+            var users         = _service.Get();
+            ViewData["Users"] = users;
 
             return View();
-        }
+        }*/
     }
 }

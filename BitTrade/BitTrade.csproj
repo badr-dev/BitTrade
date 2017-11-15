@@ -11,5 +11,9 @@
   <ItemGroup>
     <Folder Include="Views\Login\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\Currencies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\TodoModel.cs" />
   </ItemGroup>
 </Project>

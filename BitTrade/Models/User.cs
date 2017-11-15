@@ -5,18 +5,22 @@ namespace BitTrade.Models
 {
     public class User
     {
-        // [JsonProperty("Id")]
+        [JsonProperty("Id")]
         public long Id { get; set; }
-        // [JsonProperty("Firstname")]
+        [JsonProperty("Firstname")]
         public string Firstname { get; set; }
-        // [JsonProperty("Surname")]
+        [JsonProperty("Surname")]
         public string Surname { get; set; }
-        // [JsonProperty("Email")]
+        [JsonProperty("Email")]
         public string Email { get; set; }
-        // [JsonProperty("Password")]
+        [JsonProperty("Password")]
         public string Password { get; set; }
-        // [JsonProperty("Apikey")]
+        [JsonProperty("Apikey")]
         public string Apikey { get; set; }
+        [JsonProperty("Token")]
+        public string Token { get; set; }
+        [JsonProperty("StatutId")]
+        public string StatutId { get; set; }
 
         public User() { }
     }

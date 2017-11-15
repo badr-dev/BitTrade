@@ -4,25 +4,4 @@
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<table>
-	<thead>
-		<tr>
-		    <th>ID</th>
-            <th>UserID</th>
-    		<th>Title</th>
-    		<th>Completed</th>
-		</tr>
-	</thead>
-	<tbody>
-        @foreach (var item in (dynamic)(@ViewData["List"])) {
-		    <tr>
-                <td>@item.id</td>
-        		<td>@item.userId</td>
-        		<td>@item.title</td>
-    		    <td><input type="checkbox" checked="@item.completed" readonly="true"/></td>
-		    </tr>
-        }
-     </tbody>
-</table>
-
 <p>Use this area to provide additional information.</p>
