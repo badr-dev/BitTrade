@@ -8,6 +8,7 @@ using System.Web;
 using BitTrade.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace BitTrade.Services
 {
@@ -17,11 +18,11 @@ namespace BitTrade.Services
 
         public List<User> Get() {
 
-            var res  = _client.GetAsync("http://localhost:5000").Result;
-            var data = res.Content.ReadAsStringAsync().Result;
+            var res = _client.GetAsync("http://localhost:5000").Result;
 
             // Si le serveur répond (200)
             if (res.IsSuccessStatusCode) {
+                var data = res.Content.ReadAsStringAsync().Result;
                 return JsonConvert.DeserializeObject<List<User>>(res.Content.ReadAsStringAsync().Result);
             }
 

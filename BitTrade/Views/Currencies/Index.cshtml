@@ -3,3 +3,8 @@
 *@
 @{
 }
+<h1>Liste des cryptomonnaies</h1>
+
+@foreach (var currency in (dynamic)(@ViewData["Currencies"])) {
+    <p>@currency.MarketName</p>
+}
