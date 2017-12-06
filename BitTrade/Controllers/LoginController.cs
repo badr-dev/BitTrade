@@ -15,25 +15,13 @@ namespace BitTrade.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly UsersService _service;
 
-        public LoginController(UsersService service) {
-            _service = service;
-        }
+        public LoginController() {}
 
         // GET: /Login/ : Page de connexion / inscription
         public IActionResult Index()
         {
             return View();
         }
-
-        // GET: /Login/Users/
-        /*public IActionResult Users()
-        {
-            var users         = _service.Get();
-            ViewData["Users"] = users;
-
-            return View();
-        }*/
     }
 }

@@ -15,8 +15,9 @@ namespace BitTrade.Services
     public class UsersService
     {
         HttpClient _client = new HttpClient();
+        string _baseUrl = "http://localhost:5000/api/";
 
-        public List<User> Get() {
+        /*public List<User> GetUsers() {
 
             var res = _client.GetAsync("http://localhost:5000").Result;
 
@@ -24,6 +25,18 @@ namespace BitTrade.Services
             if (res.IsSuccessStatusCode) {
                 var data = res.Content.ReadAsStringAsync().Result;
                 return JsonConvert.DeserializeObject<List<User>>(res.Content.ReadAsStringAsync().Result);
+            }
+
+            return null;
+        }*/
+
+        public User GetUser(int Id) {
+
+            var res = _client.GetAsync(_baseUrl + "user/" + Id).Result;
+
+            if (res.IsSuccessStatusCode) {
+                var data = JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
+                return data.Result[0];
             }
 
             return null;
