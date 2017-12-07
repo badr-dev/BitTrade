@@ -40,8 +40,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
-                    <li><a asp-area="" asp-controller="Currencies" asp-action="Index">Monnaies</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    @if (usersService.IsConnected()) {
+                    <li><a asp-area="" asp-controller="Currencies" asp-action="Index">Currencies</a></li>
+                    }
                 </ul>
 				<ul class="nav navbar-nav" style="float: right">
                     @if (usersService.IsConnected()) {

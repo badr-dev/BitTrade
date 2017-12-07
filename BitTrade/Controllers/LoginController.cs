@@ -17,30 +17,42 @@ namespace BitTrade.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly SessionsService _service;
+        private readonly SessionsService _sessionsService;
+        private readonly UsersService _usersService;
 
-        public LoginController(SessionsService service) {
-            _service = service;
+        public LoginController(
+            SessionsService sessionsService,
+            UsersService usersService
+        ) {
+            _sessionsService = sessionsService;
+            _usersService = usersService;
         }
 
         public IActionResult Signin() {
-            return View();
+            if (!_usersService.IsConnected())
+                return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Register() {
-            return View();
+            if (!_usersService.IsConnected())
+                return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Logout() {
-            HttpContext.Session.Remove("_Token");
-            HttpContext.Session.Remove("_Id");
+            if (_usersService.IsConnected()) {
+                HttpContext.Session.Remove("_Token");
+                HttpContext.Session.Remove("_Id");
 
-            return RedirectToAction("Index", "Login");
+                return RedirectToAction("Signin", "Login");
+            }
+            return RedirectToAction("Index", "Home"); 
         }
 
         [HttpPost]
         public IActionResult Register(User user) {
-            var login = _service.Register(user);
+            var login = _sessionsService.Register(user);
             @ViewData["Error"] = null;
             @ViewData["Success"] = null;
 
@@ -59,7 +71,7 @@ namespace BitTrade.Controllers
 
         [HttpPost]
         public IActionResult Signin(User user) {
-            var login = _service.Login(user);
+            var login = _sessionsService.Login(user);
             @ViewData["Error"] = null;
 
             if (login != null) {

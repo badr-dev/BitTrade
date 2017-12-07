@@ -13,16 +13,23 @@ namespace BitTrade.Controllers
      **/
     public class CurrenciesController : Controller
     {
-        private readonly CurrenciesService _service;
+        private readonly CurrenciesService _currenciesService;
+        private readonly UsersService _usersService;
 
-        public CurrenciesController(CurrenciesService service) {
-            _service = service;
+        public CurrenciesController(
+            CurrenciesService currenciesService,
+            UsersService usersService
+        ) {
+            _currenciesService = currenciesService;
+            _usersService = usersService;
         }
 
         // GET: /Currencies/
         public IActionResult Index()
         {
-            var currencies = _service.GetCurrencies();
+            if (!_usersService.IsConnected())
+                return RedirectToAction("Index", "Home");
+            var currencies = _currenciesService.GetCurrencies();
 
             ViewData["Currencies"] = currencies;
 
