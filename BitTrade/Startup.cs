@@ -23,6 +23,7 @@ namespace BitTrade
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<UsersService>();
+            services.AddSingleton<SessionsService>();
             services.AddMvc();
         }
 

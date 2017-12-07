@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Formatting;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,17 +17,18 @@ namespace BitTrade.Services
     {
         HttpClient _client = new HttpClient();
 
-        public string Login() {
+        public SessionsService() {
+            _client.BaseAddress = new Uri("http://localhost:5000");
+        }
 
-            var res  = _client.GetAsync("http://localhost:5000").Result;
+        public Users Login(User user) {
 
-            // Si le serveur répond (200)
-            // if (res.IsSuccessStatusCode) {
-            //     var data = res.Content.ReadAsStringAsync().Result;
-            //     return JsonConvert.DeserializeObject<List<User>>(res.Content.ReadAsStringAsync().Result);
-            // }
-            return "ok";
-            // return null;
+            var res  = _client.PostAsJsonAsync("/user/login", user).Result;
+            if (res.IsSuccessStatusCode) {
+                return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
+            }
+
+            return null;
         }
     }
 }

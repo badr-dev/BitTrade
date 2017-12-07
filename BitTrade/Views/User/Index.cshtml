@@ -4,6 +4,15 @@
 @{
     var user = ViewData["User"] as User;
 }
-<h1>Détails de l'utilisateur</h1>
-
-Nom : @user.Firstname
+<div class="container container-content">
+    <div class="row">
+        <div class="col-lg-12 margin-bottom-40">
+            <h1>User profil</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            Nom : @user.Firstname
+        </div>
+    </div>
+</div>

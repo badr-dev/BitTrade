@@ -15,13 +15,26 @@ namespace BitTrade.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly SessionsService _service;
 
-        public LoginController() {}
+        public LoginController(SessionsService service) {
+            _service = service;
+        }
 
         // GET: /Login/ : Page de connexion / inscription
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(User user)
+        {
+            var login = _service.Login(user);
+            if (login.Success) {
+                
+            }
+            return RedirectToAction("Home", "Index"); 
         }
     }
 }

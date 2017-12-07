@@ -15,24 +15,14 @@ namespace BitTrade.Services
     public class UsersService
     {
         HttpClient _client = new HttpClient();
-        string _baseUrl = "http://localhost:5000/api/";
 
-        /*public List<User> GetUsers() {
-
-            var res = _client.GetAsync("http://localhost:5000").Result;
-
-            // Si le serveur répond (200)
-            if (res.IsSuccessStatusCode) {
-                var data = res.Content.ReadAsStringAsync().Result;
-                return JsonConvert.DeserializeObject<List<User>>(res.Content.ReadAsStringAsync().Result);
-            }
-
-            return null;
-        }*/
+        public UsersService() {
+            _client.BaseAddress = new Uri("http://localhost:5000/api/");
+        }
 
         public User GetUser(int Id) {
 
-            var res = _client.GetAsync(_baseUrl + "user/" + Id).Result;
+            var res = _client.GetAsync("user/" + Id).Result;
 
             if (res.IsSuccessStatusCode) {
                 var data = JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
