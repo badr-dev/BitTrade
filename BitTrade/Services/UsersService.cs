@@ -31,7 +31,15 @@ namespace BitTrade.Services
             }
 
             return false;
-            // return context.User.Identities.Any(x => x.IsAuthenticated);
+        }
+
+        public string GetUserName() {
+            var context   = _httpContextAccessor.HttpContext;
+
+            var firstname = context.Session.GetString("_Firstname");
+            var surname   = context.Session.GetString("_Surname");
+
+            return firstname + surname;
         }
 
         public User GetUser(int Id) {

@@ -18,12 +18,21 @@ namespace BitTrade.Services
         HttpClient _client = new HttpClient();
 
         public SessionsService() {
-            _client.BaseAddress = new Uri("http://localhost:5000");
+            _client.BaseAddress = new Uri("http://localhost:5000/api/");
         }
 
         public Users Login(User user) {
+            
+            var res  = _client.PostAsJsonAsync("user/login", user).Result; // Si mauvais mot de passe, retourne erreur 400 (côté serveur)
+            if (res.IsSuccessStatusCode) {
+                return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
+            }
 
-            var res  = _client.PostAsJsonAsync("/user/login", user).Result;
+            return null;
+        }
+
+        public Users Register(User user) {
+            var res = _client.PostAsJsonAsync("user/create", user).Result;
             if (res.IsSuccessStatusCode) {
                 return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
             }

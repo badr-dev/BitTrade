@@ -26,6 +26,7 @@ namespace BitTrade
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<UsersService>();
             services.AddSingleton<SessionsService>();
+            services.AddSingleton<CurrenciesService>();
             services.AddMvc();
 
             // Adds a default in-memory implementation of IDistributedCache.

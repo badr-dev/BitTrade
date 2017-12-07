@@ -42,14 +42,18 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
                     <li><a asp-area="" asp-controller="Currencies" asp-action="Index">Monnaies</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
 				<ul class="nav navbar-nav" style="float: right">
                     @if (usersService.IsConnected()) {
-                        <li><a class="navbar-nav pull-right" asp-area="" asp-controller="User" asp-action="Account">My account</a></li>
+                        <li>
+                            <a class="navbar-nav pull-right" asp-area="" asp-controller="User" asp-action="Account">
+                                @usersService.GetUserName()
+                            </a>
+                        </li>
                         <li><a class="navbar-nav pull-right" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a></li>
                     } else {
-                        <li><a class="navbar-nav pull-right" asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+                        <li><a class="navbar-nav pull-right" asp-area="" asp-controller="Login" asp-action="Register">Register</a></li>
+                        <li><a class="navbar-nav pull-right" asp-area="" asp-controller="Login" asp-action="Signin">Login</a></li>
                     }
 				</ul>
             </div>

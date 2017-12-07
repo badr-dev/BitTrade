@@ -23,8 +23,11 @@ namespace BitTrade.Controllers
             _service = service;
         }
 
-        // GET: /Login/ : Page de connexion / inscription
-        public IActionResult Index() {
+        public IActionResult Signin() {
+            return View();
+        }
+
+        public IActionResult Register() {
             return View();
         }
 
@@ -36,15 +39,47 @@ namespace BitTrade.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(User user) {
-            var login = _service.Login(user);
-            if (login.Success == true) {
-                HttpContext.Session.SetString("_Token", login.Result[0].Token);
-                HttpContext.Session.SetInt32("_Id", login.Result[0].Id);
+        public IActionResult Register(User user) {
+            var login = _service.Register(user);
+            @ViewData["Error"] = null;
 
-                return RedirectToAction("Index", "Home");
+            if (login.Success == true) {
+                if (login != null) {
+                    HttpContext.Session.SetString("_Token", login.Result[0].Token);
+                    HttpContext.Session.SetInt32("_Id", login.Result[0].Id);
+                    HttpContext.Session.SetString("_Firsname", login.Result[0].Firstname);
+                    HttpContext.Session.SetString("_Surname", login.Result[0].Surname);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                @ViewData["Error"] = login.Message;
+            } else {
+                @ViewData["Error"] = "Please check your informations.";
             }
-            return RedirectToAction("Index", "Login");
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Signin(User user) {
+            var login = _service.Login(user);
+            @ViewData["Error"] = null;
+
+            if (login != null) {
+                if (login.Success == true) {
+                    HttpContext.Session.SetString("_Token", login.Result[0].Token);
+                    HttpContext.Session.SetInt32("_Id", login.Result[0].Id);
+                    HttpContext.Session.SetString("_Firsname", login.Result[0].Firstname);
+                    HttpContext.Session.SetString("_Surname", login.Result[0].Surname);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                @ViewData["Error"] = login.Message;
+            } else {
+                @ViewData["Error"] = "Please check your credentials.";
+            }
+
+            return View();
         }
     }
 }

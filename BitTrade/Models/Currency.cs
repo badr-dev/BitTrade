@@ -12,9 +12,9 @@ namespace BitTrade.Models
         public double MinTradeSize { get; set; }
         public string MarketName { get; set; }
         public bool IsActive { get; set; }
-        // public DateTime Created { get; set; }
-        // public string Notice { get; set; }
-        // public bool? IsSponsored { get; set; }
+        public DateTime Created { get; set; }
+        public string Notice { get; set; }
+        public bool? IsSponsored { get; set; }
         public string LogoUrl { get; set; }
 
         public Currency() {}
@@ -22,9 +22,9 @@ namespace BitTrade.Models
 
     public class Currencies
     {
-        public bool success { get; set; }
-        public string message { get; set; }
-        public List<Currency> result { get; set; }
+        public bool Success { get; set; }
+        public string Message { get; set; }
+        public List<Currency> Result { get; set; }
 
         public Currencies() {}
     }
