@@ -42,19 +42,16 @@ namespace BitTrade.Controllers
         public IActionResult Register(User user) {
             var login = _service.Register(user);
             @ViewData["Error"] = null;
+            @ViewData["Success"] = null;
 
-            if (login.Success == true) {
-                if (login != null) {
-                    HttpContext.Session.SetString("_Token", login.Result[0].Token);
-                    HttpContext.Session.SetInt32("_Id", login.Result[0].Id);
-                    HttpContext.Session.SetString("_Firsname", login.Result[0].Firstname);
-                    HttpContext.Session.SetString("_Surname", login.Result[0].Surname);
-
-                    return RedirectToAction("Index", "Home");
+            if (login != null) {
+                if (login.Success == true) {
+                    @ViewData["Success"] = "You have been correctly register! You can now signin with " + user.Email + ".";
+                    return View();
                 }
                 @ViewData["Error"] = login.Message;
             } else {
-                @ViewData["Error"] = "Please check your informations.";
+                @ViewData["Error"] = "This e-mail address is already used.";
             }
 
             return View();

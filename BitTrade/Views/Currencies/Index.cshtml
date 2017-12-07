@@ -16,7 +16,9 @@
                     <tr>
                         <th>Logo</th>
                         <th>Currency</th>
+                        <th>Base currency</th>
                         <th>Market name</th>
+                        <th>Trade size (min.)</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -27,7 +29,10 @@
                             <img class="img-responsive img-table" src="@currency.LogoUrl">
                         </td>
                         <td data-valign="middle">@currency.MarketCurrencyLong</td>
+                        <td data-valign="middle">@currency.BaseCurrencyLong</td>
                         <td data-valign="middle">@currency.MarketName</td>
+
+                        <td data-valign="middle">@currency.MinTradeSize</td>
                         <td data-valign="middle">
                             @if (currency.IsActive) {
                                 <span class="label label-success">Actived</span>
