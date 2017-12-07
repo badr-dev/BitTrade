@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Formatting;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using System.Web;
@@ -26,6 +27,13 @@ namespace BitTrade.Services
 
         public bool IsConnected() {
             var context = _httpContextAccessor.HttpContext;
+            // var token = context.Session.GetString("_Token");
+            // var res = _client.PostAsJsonAsync("checktoken", token).Result;
+
+            // if (res.IsSuccessStatusCode) {
+                // return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
+            // }
+
             if (context.Session.GetInt32("_Id") > 0) {
                 return true;
             }
