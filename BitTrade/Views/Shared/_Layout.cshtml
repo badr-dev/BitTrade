@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using BitTrade.Services
+@inject UsersService usersService
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -42,7 +45,12 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
 				<ul class="nav navbar-nav" style="float: right">
-					<li><a class="navbar-nav pull-right" asp-area="" asp-controller="Login" asp-action="Index">Connexion</a></li>
+                    @if (usersService.IsConnected()) {
+                        <li><a class="navbar-nav pull-right" asp-area="" asp-controller="User" asp-action="Account">My account</a></li>
+                        <li><a class="navbar-nav pull-right" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a></li>
+                    } else {
+                        <li><a class="navbar-nav pull-right" asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+                    }
 				</ul>
             </div>
         </div>

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 using BitTrade.Models;
 using BitTrade.Services;
 using Newtonsoft.Json;
@@ -22,19 +24,27 @@ namespace BitTrade.Controllers
         }
 
         // GET: /Login/ : Page de connexion / inscription
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             return View();
         }
 
+        public IActionResult Logout() {
+            HttpContext.Session.Remove("_Token");
+            HttpContext.Session.Remove("_Id");
+
+            return RedirectToAction("Index", "Login");
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Create(User user)
-        {
+        public IActionResult Create(User user) {
             var login = _service.Login(user);
-            if (login.Success) {
-                
+            if (login.Success == true) {
+                HttpContext.Session.SetString("_Token", login.Result[0].Token);
+                HttpContext.Session.SetInt32("_Id", login.Result[0].Id);
+
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Home", "Index"); 
+            return RedirectToAction("Index", "Login");
         }
     }
 }

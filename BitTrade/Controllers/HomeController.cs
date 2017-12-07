@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 using BitTrade.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
