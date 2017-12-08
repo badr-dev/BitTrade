@@ -1,6 +1,8 @@
 ﻿@using BitTrade.Services
 @inject UsersService usersService
-
+@{
+    var userId = usersService.GetUserId();
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +50,7 @@
 				<ul class="nav navbar-nav" style="float: right">
                     @if (usersService.IsConnected()) {
                         <li>
-                            <a class="navbar-nav pull-right" asp-area="" asp-controller="User" asp-action="Account">
+                            <a class="navbar-nav pull-right" asp-area="" asp-controller="User" asp-action="Index" asp-route-Id="@userId">
                                 @usersService.GetUserName()
                             </a>
                         </li>

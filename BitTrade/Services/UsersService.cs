@@ -25,6 +25,14 @@ namespace BitTrade.Services
             _client.BaseAddress = new Uri("http://localhost:5000/api/");
         }
 
+        public int? GetUserId() {
+            var context = _httpContextAccessor.HttpContext;
+            if (context.Session.GetInt32("_Id") > 0) {
+                return context.Session.GetInt32("_Id");
+            }
+            return null;
+        }
+
         public bool IsConnected() {
             var context = _httpContextAccessor.HttpContext;
             // var token = context.Session.GetString("_Token");
@@ -47,7 +55,7 @@ namespace BitTrade.Services
             var firstname = context.Session.GetString("_Firstname");
             var surname   = context.Session.GetString("_Surname");
 
-            return firstname + surname;
+            return (firstname + surname);
         }
 
         public User GetUser(int Id) {
