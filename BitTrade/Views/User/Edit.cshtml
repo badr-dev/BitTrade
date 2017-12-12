@@ -21,20 +21,20 @@
                 <div class="alert alert-success">@ViewData["Success"]</div>
             </div>
             }
-            <form action="/User/Edit" method="POST">
-                <fieldset>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="Firstname" name="firstname" value="@user.Firstname" type="text">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="Surname" name="surname" value="@user.Surname" type="text">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="E-mail" name="email" value="@user.Email" type="email" readonly="">
-                    </div>
-                    <button type="submit" class="btn btn-sm btn-success">Edit</button>
-                </fieldset>
-            </form>
+            @using(Html.BeginForm("Edit", "User", FormMethod.Post)) {
+            <fieldset>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Firstname" name="firstname" value="@user.Firstname" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Surname" name="surname" value="@user.Surname" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="E-mail" name="email" value="@user.Email" type="email" readonly="">
+                </div>
+                <button type="submit" class="btn btn-sm btn-success">Edit</button>
+            </fieldset>
+            }
         </div>
     </div>
 </div>

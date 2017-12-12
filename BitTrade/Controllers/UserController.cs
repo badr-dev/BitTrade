@@ -24,6 +24,8 @@ namespace BitTrade.Controllers
         // Page GET: Page de détails d'un utilisateur
         public IActionResult Edit()
         {
+            if (!_usersService.IsConnected())
+                return RedirectToAction("Index", "Home"); 
             var userId = _usersService.GetUserId();
             var user = _usersService.GetUser(userId.Value);
             ViewData["User"] = user;
@@ -35,6 +37,8 @@ namespace BitTrade.Controllers
         [HttpPost]
         public IActionResult Edit(User user)
         {
+            if (!_usersService.IsConnected())
+                return RedirectToAction("Index", "Home");
             var edit = _usersService.Edit(user);
             @ViewData["Error"] = null;
             @ViewData["Success"] = null;
@@ -59,6 +63,8 @@ namespace BitTrade.Controllers
         // Page GET de suppression de l'utilisateur
         public IActionResult Unsubscribe(int Id)
         {
+            if (!_usersService.IsConnected())
+                return RedirectToAction("Index", "Home");
             var userId = _usersService.GetUserId();
             var user = _usersService.GetUser(userId.Value);
             ViewData["User"] = user;
@@ -70,6 +76,8 @@ namespace BitTrade.Controllers
         [HttpPost]
         public IActionResult Unsubscribe(User user)
         {
+            if (!_usersService.IsConnected())
+                return RedirectToAction("Index", "Home");
             var delete = _usersService.Delete(user);
             @ViewData["Error"] = null;
             @ViewData["Success"] = null;

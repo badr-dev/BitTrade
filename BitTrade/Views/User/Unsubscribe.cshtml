@@ -12,12 +12,10 @@
         </div>
         <div class="col-md-9 well admin-content">
             <p>By clicking on this button, you agree to totally desactivate your account from BITTRADE.</p><br>
-            <form action="/User/Unsubscribe" method="POST">
+            @using(Html.BeginForm("Unsubscribe", "User", FormMethod.Post)) {
                 <input type="hidden" name="id" value="@user.Id">
-                <a class="btn btn-danger">
-                    Unsubscribe
-                </a>
-            </form>
+                <button type="submit" class="btn btn-danger">Unsubscribe</button>
+            }
         </div>
     </div>
 </div>
