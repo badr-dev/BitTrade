@@ -21,11 +21,11 @@ namespace BitTrade.Controllers
             _usersService = usersService;
         }
 
-        // Page GET: /Users/:Id : Page de détails d'un utilisateur
-        [Route("User/Edit/{*Id}")]
-        public IActionResult Edit(int Id)
+        // Page GET: Page de détails d'un utilisateur
+        public IActionResult Edit()
         {
-            var user = _usersService.GetUser(Id);
+            var userId = _usersService.GetUserId();
+            var user = _usersService.GetUser(userId.Value);
             ViewData["User"] = user;
 
             return View();
@@ -47,6 +47,41 @@ namespace BitTrade.Controllers
                     return View();
                 }
                 @ViewData["Error"] = edit.Message;
+            }
+            else
+            {
+                @ViewData["Error"] = "An error occured.";
+            }
+
+            return View();
+        }
+
+        // Page GET de suppression de l'utilisateur
+        public IActionResult Unsubscribe(int Id)
+        {
+            var userId = _usersService.GetUserId();
+            var user = _usersService.GetUser(userId.Value);
+            ViewData["User"] = user;
+
+            return View();   
+        }
+
+        // Page POST de suppression d'un user
+        [HttpPost]
+        public IActionResult Unsubscribe(User user)
+        {
+            var delete = _usersService.Delete(user);
+            @ViewData["Error"] = null;
+            @ViewData["Success"] = null;
+
+            if (delete != null)
+            {
+                if (delete.Success == true)
+                {
+                    @ViewData["Success"] = delete.Message;
+                    return View();
+                }
+                @ViewData["Error"] = delete.Message;
             }
             else
             {

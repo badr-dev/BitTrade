@@ -44,7 +44,7 @@ namespace BitTrade.Controllers
                 return RedirectToAction("Index", "Home");
             var currency = _currenciesService.GetCurrency(Identifier);
 
-            ViewData["Currency"] = currency;
+            ViewData["MarketCurrency"] = currency;
 
             return View();
         }

@@ -38,12 +38,12 @@ namespace BitTrade.Services
         }
 
         // Retourne une unique cryptomonnaie selon le MarketName
-        public Currency GetCurrency(string Identifier) {
+        public MarketCurrency GetCurrency(string Identifier) {
             var res = _client.GetAsync("currency/" + Identifier).Result;
 
             if (res.IsSuccessStatusCode)
             {
-                var data = JsonConvert.DeserializeObject<Currencies>(res.Content.ReadAsStringAsync().Result);
+                var data = JsonConvert.DeserializeObject<MarketCurrencies>(res.Content.ReadAsStringAsync().Result);
                 if (data.Success)
                 {
                     return data.Result[0];

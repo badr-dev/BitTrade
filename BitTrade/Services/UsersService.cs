@@ -38,10 +38,22 @@ namespace BitTrade.Services
             return null;
         }
 
-        // POST : Edit user
+        // PUT : Edit user
         public Users Edit(User user)
         {
             var res = _client.PutAsJsonAsync("user/" + user.Id, user).Result;
+            if (res.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
+            }
+
+            return null;
+        }
+
+        // DELETE : Delete user
+        public Users Delete(User user)
+        {
+            var res = _client.DeleteAsync("user/" + user.Id).Result;
             if (res.IsSuccessStatusCode)
             {
                 return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);

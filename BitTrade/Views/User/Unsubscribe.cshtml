@@ -1,0 +1,25 @@
+﻿@{
+    var user = (User)ViewData["User"];
+}
+<div class="container container-content">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked admin-menu">
+                <li><a asp-controller="User" asp-action="Edit">Profile</a></li>
+                <li><a asp-controller="User" asp-action="Favorites">Favorites</a></li>
+                <li class="active"><a href="#">Unsubscribe</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9 well admin-content">
+            <p>By clicking on this button, you agree to totally desactivate your account from BITTRADE.</p><br>
+            <form action="/User/Unsubscribe" method="POST">
+                <input type="hidden" name="id" value="@user.Id">
+                <a class="btn btn-danger">
+                    Unsubscribe
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
