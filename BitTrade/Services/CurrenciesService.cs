@@ -22,6 +22,7 @@ namespace BitTrade.Services
             _client.BaseAddress = new Uri("http://localhost:5000/api/");
         }
 
+        // Retourne la liste des toutes les cryptomonnaies
         public List<Currency> GetCurrencies() {
 
             var res = _client.GetAsync("currencies").Result;
@@ -30,6 +31,22 @@ namespace BitTrade.Services
                 var data = JsonConvert.DeserializeObject<Currencies>(res.Content.ReadAsStringAsync().Result);
                 if (data.Success) {
                     return data.Result;   
+                }
+            }
+
+            return null;
+        }
+
+        // Retourne une unique cryptomonnaie selon le MarketName
+        public Currency GetCurrency(string Identifier) {
+            var res = _client.GetAsync("currency/" + Identifier).Result;
+
+            if (res.IsSuccessStatusCode)
+            {
+                var data = JsonConvert.DeserializeObject<Currencies>(res.Content.ReadAsStringAsync().Result);
+                if (data.Success)
+                {
+                    return data.Result[0];
                 }
             }
 

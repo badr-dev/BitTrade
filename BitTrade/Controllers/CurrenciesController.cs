@@ -40,6 +40,12 @@ namespace BitTrade.Controllers
         [Route("Currencies/Details/{*Identifier}")]
         public IActionResult Details(string Identifier)
         {
+            if (!_usersService.IsConnected())
+                return RedirectToAction("Index", "Home");
+            var currency = _currenciesService.GetCurrency(Identifier);
+
+            ViewData["Currency"] = currency;
+
             return View();
         }
     }
