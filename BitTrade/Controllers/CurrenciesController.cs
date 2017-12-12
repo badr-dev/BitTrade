@@ -37,7 +37,8 @@ namespace BitTrade.Controllers
         }
 
         // GET: /Currencies/Details
-        public IActionResult Details()
+        [Route("Currencies/Details/{*Identifier}")]
+        public IActionResult Details(string Identifier)
         {
             return View();
         }

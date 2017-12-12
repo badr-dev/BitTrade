@@ -20,6 +20,7 @@
                         <th>Market name</th>
                         <th>Trade size (min.)</th>
                         <th>Status</th>
+                        <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,9 @@
                             } else {
                                 <span class="label label-danger">Desactivated</span>
                             }
+                        </td>
+                        <td>
+                            <a asp-controller="Currencies" asp-action="Details" asp-route-Identifier="@currency.MarketName">Show currency</a>
                         </td>
                     </tr>
                     }

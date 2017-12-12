@@ -25,7 +25,33 @@ namespace BitTrade.Services
             _client.BaseAddress = new Uri("http://localhost:5000/api/");
         }
 
-        public int? GetUserId() {
+        // GET : Get single user
+        public User GetUser(int Id)
+        {
+            var res = _client.GetAsync("user/" + Id).Result;
+            if (res.IsSuccessStatusCode)
+            {
+                var data = JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
+                return data.Result[0];
+            }
+
+            return null;
+        }
+
+        // POST : Edit user
+        public Users Edit(User user)
+        {
+            var res = _client.PutAsJsonAsync("user/" + user.Id, user).Result;
+            if (res.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
+            }
+
+            return null;
+        }
+
+        public int? GetUserId() 
+        {
             var context = _httpContextAccessor.HttpContext;
             if (context.Session.GetInt32("_Id") > 0) {
                 return context.Session.GetInt32("_Id");
@@ -33,41 +59,32 @@ namespace BitTrade.Services
             return null;
         }
 
-        public bool IsConnected() {
+        public bool IsConnected() 
+        {
             var context = _httpContextAccessor.HttpContext;
-            // var token = context.Session.GetString("_Token");
-            // var res = _client.PostAsJsonAsync("checktoken", token).Result;
 
-            // if (res.IsSuccessStatusCode) {
-                // return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
-            // }
-
-            if (context.Session.GetInt32("_Id") > 0) {
-                return true;
+            User user = new User();
+            var token = context.Session.GetString("_Token");
+            user.Token = token;
+            var res = _client.PostAsJsonAsync("checktoken", user).Result;
+            if (res.IsSuccessStatusCode) {
+                var content = JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
+                if (content.Success) {
+                    return true;
+                }
             }
 
             return false;
         }
 
-        public string GetUserName() {
+        public string GetUserName() 
+        {
             var context   = _httpContextAccessor.HttpContext;
 
             var firstname = context.Session.GetString("_Firstname");
             var surname   = context.Session.GetString("_Surname");
 
             return (firstname + surname);
-        }
-
-        public User GetUser(int Id) {
-
-            var res = _client.GetAsync("user/" + Id).Result;
-
-            if (res.IsSuccessStatusCode) {
-                var data = JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
-                return data.Result[0];
-            }
-
-            return null;
         }
     }
 }

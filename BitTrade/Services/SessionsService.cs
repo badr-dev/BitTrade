@@ -21,6 +21,7 @@ namespace BitTrade.Services
             _client.BaseAddress = new Uri("http://localhost:5000/api/");
         }
 
+        // POST : Login
         public Users Login(User user) {
             
             var res  = _client.PostAsJsonAsync("user/login", user).Result; // Si mauvais mot de passe, retourne erreur 400 (côté serveur)
@@ -31,6 +32,7 @@ namespace BitTrade.Services
             return null;
         }
 
+        // POST : Register
         public Users Register(User user) {
             var res = _client.PostAsJsonAsync("user/create", user).Result;
             if (res.IsSuccessStatusCode) {
