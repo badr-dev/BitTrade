@@ -73,7 +73,7 @@ namespace BitTrade.Controllers
                 @ViewData["Error"] = "";
             }
 
-            return RedirectToAction("Index", "Currencies");;
+            return RedirectToAction("Index", "Currencies");
         }
     }
 }

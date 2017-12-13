@@ -99,25 +99,32 @@ namespace BitTrade.Controllers
         {
             if (!_usersService.IsConnected())
                 return RedirectToAction("Index", "Home");
+            user.Token = _usersService.GetUserToken();
             var delete = _usersService.Delete(user);
-            @ViewData["Error"] = null;
-            @ViewData["Success"] = null;
+
+            @TempData["Error"] = null;
+            @TempData["Success"] = null;
 
             if (delete != null)
             {
                 if (delete.Success == true)
                 {
-                    @ViewData["Success"] = delete.Message;
-                    return View();
+                    HttpContext.Session.Remove("_Token");
+                    HttpContext.Session.Remove("_Id");
+                    HttpContext.Session.Remove("_Firstname");
+                    HttpContext.Session.Remove("_Surname");
+
+                    @TempData["Success"] = delete.Message;
+                } else {
+                    @TempData["Error"] = delete.Message;   
                 }
-                @ViewData["Error"] = delete.Message;
             }
             else
             {
-                @ViewData["Error"] = "An error occured.";
+                @TempData["Error"] = "An error occured.";
             }
 
-            return View();
+            return RedirectToAction("Signin", "Login");
         }
     }
 }
