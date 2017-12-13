@@ -56,7 +56,6 @@ namespace BitTrade.Services
         // Ajoute une cryptomonnaie au favoris d'un utilisateur
         public UserCurrencies AddCurrencyFavorite(UserCurrency userCurrency)
         {
-            var toto = userCurrency;
             var res = _client.PostAsJsonAsync("usercurrencies", userCurrency).Result;
 
             if (res.IsSuccessStatusCode)
