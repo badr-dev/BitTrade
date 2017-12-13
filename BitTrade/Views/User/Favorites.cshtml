@@ -1,5 +1,5 @@
 ﻿@{
-    var user = (User)ViewData["User"];
+    var favorites = (UserCurrencies)ViewData["Favorites"];
 }
 <div class="container container-content">
     <div class="row">
@@ -11,7 +11,9 @@
             </ul>
         </div>
         <div class="col-md-9 well admin-content">
-            
+            @foreach (var favorite in favorites.Result) {
+                <p>@favorite.MarketName</p>
+            }
         </div>
     </div>
 </div>

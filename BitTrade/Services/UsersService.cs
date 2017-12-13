@@ -71,6 +71,14 @@ namespace BitTrade.Services
             return null;
         }
 
+        public string GetUserToken()
+        {
+            var context = _httpContextAccessor.HttpContext;
+            var token = context.Session.GetString("_Token");
+
+            return context.Session.GetString("_Token");
+        }
+
         public bool IsConnected() 
         {
             var context = _httpContextAccessor.HttpContext;

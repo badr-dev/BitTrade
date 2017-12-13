@@ -45,8 +45,35 @@ namespace BitTrade.Controllers
             var currency = _currenciesService.GetCurrency(Identifier);
 
             ViewData["MarketCurrency"] = currency;
+            ViewData["UserId"] = _usersService.GetUserId();
 
             return View();
+        }
+
+        // POST: /Currencies/Favorites
+        [HttpPost]
+        public IActionResult Favorites(UserCurrency userCurrency)
+        {
+            var favorite = _currenciesService.AddCurrencyFavorite(userCurrency);
+            @ViewData["Error"] = null;
+            @ViewData["Success"] = null;
+
+            if (favorite != null)
+            {
+                if (favorite.Success == true)
+                {
+                    @ViewData["Success"] = "";
+                    return View();
+                } else {
+                    @ViewData["Error"] = favorite.Message;   
+                }
+            }
+            else
+            {
+                @ViewData["Error"] = "";
+            }
+
+            return RedirectToAction("Index", "Currencies");;
         }
     }
 }

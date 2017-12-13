@@ -52,5 +52,28 @@ namespace BitTrade.Services
 
             return null;
         }
+
+        // Ajoute une cryptomonnaie au favoris d'un utilisateur
+        public UserCurrencies AddCurrencyFavorite(UserCurrency userCurrency) {
+            var res = _client.PostAsJsonAsync("usercurrencies", userCurrency).Result;
+            if (res.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<UserCurrencies>(res.Content.ReadAsStringAsync().Result);
+            }
+
+            return null;
+        }
+
+        // Retourne la liste des cryptomonnaies en favoris d'un utilisateur
+        public UserCurrencies GetCurrencyFavorites(User user)
+        {
+            var res = _client.GetAsync("usercurrencies/" + user.Id).Result;
+            if (res.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<UserCurrencies>(res.Content.ReadAsStringAsync().Result);
+            }
+
+            return null;
+        }
     }
 }

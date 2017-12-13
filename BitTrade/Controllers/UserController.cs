@@ -16,9 +16,14 @@ namespace BitTrade.Controllers
     public class UserController : Controller
     {
         private readonly UsersService _usersService;
+        private readonly CurrenciesService _currenciesService;
 
-        public UserController(UsersService usersService) {
+        public UserController(
+            UsersService usersService,
+            CurrenciesService currenciesService
+        ) {
             _usersService = usersService;
+            _currenciesService = currenciesService;
         }
 
         // Page GET: Page de détails d'un utilisateur
@@ -39,6 +44,7 @@ namespace BitTrade.Controllers
         {
             if (!_usersService.IsConnected())
                 return RedirectToAction("Index", "Home");
+            user.Token = _usersService.GetUserToken();
             var edit = _usersService.Edit(user);
             @ViewData["Error"] = null;
             @ViewData["Success"] = null;
@@ -48,6 +54,8 @@ namespace BitTrade.Controllers
                 if (edit.Success == true)
                 {
                     @ViewData["Success"] = edit.Message;
+                    @ViewData["User"] = edit.Result[0];
+
                     return View();
                 }
                 @ViewData["Error"] = edit.Message;
@@ -56,6 +64,19 @@ namespace BitTrade.Controllers
             {
                 @ViewData["Error"] = "An error occured.";
             }
+
+            return View();
+        }
+
+        // Page GET: Page de favoris d'un utilisateur
+        public IActionResult Favorites()
+        {
+            if (!_usersService.IsConnected())
+                return RedirectToAction("Index", "Home");
+            var userId = _usersService.GetUserId();
+            var user = _usersService.GetUser(userId.Value);
+            var favorites = _currenciesService.GetCurrencyFavorites(user);
+            ViewData["Favorites"] = favorites;
 
             return View();
         }
