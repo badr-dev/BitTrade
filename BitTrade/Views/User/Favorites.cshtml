@@ -12,8 +12,13 @@
         </div>
         <div class="col-md-9 well admin-content">
             @foreach (var favorite in favorites.Result) {
-                <p>@favorite.MarketName</p>
+                <div class="favortites-item">
+                    <span>@favorite.MarketName</span>
+                    <a asp-controller="Currencies" asp-action="Details" asp-route-Identifier="@favorite.MarketName" class="btn btn-primary">Details</a>
+                    <a class="btn btn-danger">Remove</a>
+                </div>
             }
+
         </div>
     </div>
 </div>

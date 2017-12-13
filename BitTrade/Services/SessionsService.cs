@@ -22,10 +22,11 @@ namespace BitTrade.Services
         }
 
         // POST : Login
-        public Users Login(User user) {
-            
-            var res  = _client.PostAsJsonAsync("user/login", user).Result; // Si mauvais mot de passe, retourne erreur 400 (côté serveur)
-            if (res.IsSuccessStatusCode) {
+        public Users Login(User user) 
+        {    
+            var res = _client.PostAsJsonAsync("user/login", user).Result; // Si mauvais mot de passe, retourne erreur 400 (côté serveur)
+            if (res.IsSuccessStatusCode)
+            {
                 return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
             }
 
@@ -33,9 +34,11 @@ namespace BitTrade.Services
         }
 
         // POST : Register
-        public Users Register(User user) {
+        public Users Register(User user)
+        {
             var res = _client.PostAsJsonAsync("user/create", user).Result;
-            if (res.IsSuccessStatusCode) {
+            if (res.IsSuccessStatusCode)
+            {
                 return JsonConvert.DeserializeObject<Users>(res.Content.ReadAsStringAsync().Result);
             }
 

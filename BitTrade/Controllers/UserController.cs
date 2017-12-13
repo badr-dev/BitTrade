@@ -45,6 +45,7 @@ namespace BitTrade.Controllers
             if (!_usersService.IsConnected())
                 return RedirectToAction("Index", "Home");
             user.Token = _usersService.GetUserToken();
+            user.Id = _usersService.GetUserId().Value;
             var edit = _usersService.Edit(user);
             @ViewData["Error"] = null;
             @ViewData["Success"] = null;
@@ -58,12 +59,10 @@ namespace BitTrade.Controllers
 
                     return View();
                 }
-                @ViewData["Error"] = edit.Message;
             }
-            else
-            {
-                @ViewData["Error"] = "An error occured.";
-            }
+
+            @ViewData["Error"] = edit.Message;
+            @ViewData["User"] = _usersService.GetUser(_usersService.GetUserId().Value);
 
             return View();
         }

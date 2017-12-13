@@ -9,6 +9,20 @@
             <h1>Crypto currencies list</h1>
         </div>
     </div>
+    @if (TempData["Error"] != null) {
+    <div class="row text-align-center">
+        <div class="col-lg-12">
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        </div>
+    </div>
+    }
+    @if (TempData["Success"] != null) {
+    <div class="row text-align-center">
+        <div class="col-lg-12">
+            <div class="alert alert-success">@TempData["Success"]</div>
+            </div>
+    </div>
+    }
     <div class="row">
         <div class="col-lg-12">
             <table data-toggle="table" data-pagination="true">

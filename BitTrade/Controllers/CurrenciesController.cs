@@ -54,23 +54,24 @@ namespace BitTrade.Controllers
         [HttpPost]
         public IActionResult Favorites(UserCurrency userCurrency)
         {
+            userCurrency.UserForeignKey = _usersService.GetUserId().Value;
             var favorite = _currenciesService.AddCurrencyFavorite(userCurrency);
-            @ViewData["Error"] = null;
-            @ViewData["Success"] = null;
+
+            @TempData["Error"] = null;
+            @TempData["Success"] = null;
 
             if (favorite != null)
             {
                 if (favorite.Success == true)
                 {
-                    @ViewData["Success"] = "";
-                    return View();
+                    @TempData["Success"] = favorite.Message;
                 } else {
-                    @ViewData["Error"] = favorite.Message;   
+                    @TempData["Error"] = "Error while adding currency to favorites.";   
                 }
             }
             else
             {
-                @ViewData["Error"] = "";
+                @TempData["Error"] = "Error while adding currency to favorites.";
             }
 
             return RedirectToAction("Index", "Currencies");
